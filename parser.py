@@ -1,9 +1,12 @@
 #!/usr/bin/env python
-# return True if re.match('([a-zA-Z])',char) else False
+# return True if re.match('([a-zA-Z])',char) elsE FalsE
 # -*- coding: utf-8 -*-
 import sys
 import re
 lines = open(sys.argv[1])
+list_vec_debug = ""
+list_vec = ""
+list_veca = ""
 def s0(char):
 	if re.match('([a-zA-Z])',char):
 		return('s1')
@@ -27,7 +30,7 @@ def s1(char):
 	elif re.match('([]])',char):
 		return('sE')
 	elif re.match('([,])',char):
-		return('sE')
+		return('s3')
 	elif re.match('([;])',char):
 		return('s4')
 def s2(char):
@@ -40,7 +43,7 @@ def s2(char):
 	elif re.match('([]])',char):
 		return('sE')
 	elif re.match('([,])',char):
-		return('SE')
+		return('sE')
 	elif re.match('([;])',char):
 		return('sE')
 def s3(char):
@@ -51,9 +54,9 @@ def s3(char):
 	elif re.match('([[])',char):
 		return('sE')
 	elif re.match('([]])',char):
-		return('SE')
+		return('sE')
 	elif re.match('([,])',char):
-		return('SE')
+		return('sE')
 	elif re.match('([;])',char):
 		return('sE')
 def s4(char):
@@ -121,5 +124,17 @@ def states(x,char):
         }[x](char)
 current_state = 's0'
 for line in lines:
-        for character in line:
-                print character,states(current_state,character)
+	print "Input: "+line;
+	for character in line:
+		current_state = states(current_state,character)
+		#list_vec_debug+=character
+		list_vec+=character
+		#print list_vec_debug.split(',')
+		list_vec
+		if current_state == 's6':
+			list_veca += list_vec+","
+		elif character==',':
+			list_vec=''
+		#print character,states(current_state,character),current_state
+		states(current_state,character)
+print "Ouput: "+list_veca
