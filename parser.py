@@ -1,23 +1,114 @@
+#!/usr/bin/env python
+# return True if re.match('([a-zA-Z])',char) else False
+# -*- coding: utf-8 -*-
 import sys
 import re
 lines = open(sys.argv[1])
 def s0(char):
-        return True if re.match('([a-zA-Z])',char) else False
+	if re.match('([a-zA-Z])',char):
+		return('s1')
+	elif re.match('([0-9])',char):
+		return('sE')
+	elif re.match('([[])',char):
+		return('sE')
+	elif re.match('([]])',char):
+		return('sE')
+	elif re.match('([,])',char):
+		return('s3')
+	elif re.match('([;])',char):
+		return('sE')
 def s1(char):
-        print "state s1"
+	if re.match('([a-zA-Z])',char):
+		return('s1')
+	elif re.match('([0-9])',char):
+		return('s1')
+	elif re.match('([[])',char):
+		return('s2')
+	elif re.match('([]])',char):
+		return('sE')
+	elif re.match('([,])',char):
+		return('sE')
+	elif re.match('([;])',char):
+		return('s4')
 def s2(char):
-        print "state s2"
+	if re.match('([a-zA-Z])',char):
+		return('sE')
+	elif re.match('([0-9])',char):
+		return('s5')
+	elif re.match('([[])',char):
+		return('sE')
+	elif re.match('([]])',char):
+		return('sE')
+	elif re.match('([,])',char):
+		return('SE')
+	elif re.match('([;])',char):
+		return('sE')
 def s3(char):
-        print "state s3"
+	if re.match('([a-zA-Z])',char):
+		return('s1')
+	elif re.match('([0-9])',char):
+		return('sE')
+	elif re.match('([[])',char):
+		return('sE')
+	elif re.match('([]])',char):
+		return('SE')
+	elif re.match('([,])',char):
+		return('SE')
+	elif re.match('([;])',char):
+		return('sE')
 def s4(char):
-        print "state s4"
+	if re.match('([a-zA-Z])',char):
+		return('sE')
+	elif re.match('([0-9])',char):
+		return('sE')
+	elif re.match('([[])',char):
+		return('sE')
+	elif re.match('([]])',char):
+		return('sE')
+	elif re.match('([,])',char):
+		return('sE')
+	elif re.match('([;])',char):
+		return('sE')
 def s5(char):
-        print "state s5"
+	if re.match('([a-zA-Z])',char):
+		return('sE')
+	elif re.match('([0-9])',char):
+		return('s5')
+	elif re.match('([[])',char):
+		return('sE')
+	elif re.match('([]])',char):
+		return('s6')
+	elif re.match('([,])',char):
+		return('sE')
+	elif re.match('([;])',char):
+		return('sE')
 def s6(char):
-        print "state s6"
+	if re.match('([a-zA-Z])',char):
+		return('sE')
+	elif re.match('([0-9])',char):
+		return('sE')
+	elif re.match('([[])',char):
+		return('sE')
+	elif re.match('([]])',char):
+		return('sE')
+	elif re.match('([,])',char):
+		return('s3')
+	elif re.match('([;])',char):
+		return('s4')
 def sE(char):
-        print "state sE"
-def states(x):
+	if re.match('([a-zA-Z])',char):
+		return('s1')
+	elif re.match('([0-9])',char):
+		return('s1')
+	elif re.match('([[])',char):
+		return('s2')
+	elif re.match('([]])',char):
+		return('sE')
+	elif re.match('([,])',char):
+		return('s3')
+	elif re.match('([;])',char):
+		return('s4')
+def states(x,char):
         return{
                 's0':s0,
                 's1':s1,
@@ -27,7 +118,8 @@ def states(x):
                 's5':s5,
                 's6':s6,
                 'sE':sE,
-        }[x]()
+        }[x](char)
+current_state = 's0'
 for line in lines:
         for character in line:
-                print character,s0(character)
+                print character,states(current_state,character)
